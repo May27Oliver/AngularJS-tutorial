@@ -6,5 +6,9 @@ app3.controller('gListCtrl',function($scope){
         {item:"Potatoes",purchased:false},
         {item:"Bread",purchased:false},
         {item:"Hummus",purchased:false}
-    ]
+    ];
+
+    $scope.getList = function(){
+        return $scope.showList?"ulgroceryList.html":"groceryList.html";
+    }
 });

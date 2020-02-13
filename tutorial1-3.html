@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+    <!-- ng-cloak 很像ng-bind，用來處理angular載入不完全時的問題 -->
     <div id="groceryList" ng-controller='gListCtrl'>
         <h3 class="ListTitle">{{groceries.length}}Groceries to Get</h3>
         <!-- <h3 class="ListTitle">
@@ -24,6 +25,35 @@
                 {{grocery.item}}{{$index}}
             </li>
         </ol>
+
+        <!-- ng-repeat-start 迴圈開始 ng-repeat-end 迴圈結束 -->
+        <table style="border:1px solid black;">
+            <tr ng-repeat-start="grocery in groceries" >
+                <td style="border:1px solid black">
+                    {{grocery.item}}
+                </td>
+            </tr>
+            <tr ng-repeat-end >
+                <td style="border:1px solid black">
+                    {{grocery.purchased}}
+                </td>
+            </tr>
+        </table>
+
+        <label>Change 1st Item :</label>
+        <input ng-model="groceries[0].item"/>
+        
+        <!-- ng-include用來載入html模板的directive -->
+        <h3>Grocery List</h3>
+        <div ng-include="'groceryList.html'"></div>
+        
+        <label>
+            <input type="checkbox" ng-model='showList'>
+            Show Unordered List
+        </label>
+        <!-- 用function來決定要載入哪個template -->
+        <ng-include src="getList()"></ng-include>
+    
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
     <script src="js/exam3.js"></script>
