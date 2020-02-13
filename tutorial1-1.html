@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app1" ng-init="person = {fName:'Derek',lName:'Banas'};capitals=[{city:'Montgomery',state:'Alabama'},{city:'Juneau',state:'Alaska'},{city:'Phoenix',state:'Arizona'}]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div ng-controller="ctrl1">
+        <span>Values:</span>
+        <input type="text" ng-model="first">
+        <input type="text" ng-model="second">
+        
+        <button ng-click="updateValue()">Sum</button>
+        <br><br>
+
+        {{calculation}}
+        <p>5+5={{5+5}}</p>
+
+        <p>Your first Value is {{first}}</p>
+        <p>Your second value is
+            <span data-ng-bind="second"></span>
+        </p>
+
+        <p>{{person.fName+""+person.lName}} you entered{{first + "and" + second}}</p>
+        
+        <ul>
+            <li ng-repeat="capital in capitals">
+                {{'City: '+capital.city+', State:'+capital.state}}
+            </li>
+        </ul>
+        <!-- ng-model和ng-bind都有綁定資料的功能 -->
+    </div>
+    <!-- 在controller標籤外的directive不生效 -->
+    <input type="text" ng-model="first">
+    <input type="text" ng-model="second">
+<!-- ng-app是告訴angularJS程式從module這裡開始讀入，module一開始載入，會先執行ng-init，我們可以利用ng-init設定初始值。 -->
+<!-- 設定初始值亦可以透過ng-controller寫在JS裡 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="js/exam1.js"></script>
+</body>
+</html>

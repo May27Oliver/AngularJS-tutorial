@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--Dependency Injection -->
+    
+    <!-- rather create a object inside the function, DI gives the function an object -->
+    
+    <!-- 依賴注入：在函式內宣告物件，會造成程式不好維護，AngularJS直接將物件以參數的方式丟進函式
+       
+        建立物件相依性在javaScript的三種實現方式：
+        (1)透過new運算子
+        (2)透過全域變數(根物件下的變數／屬性)
+        /*以上兩種方式相依性要寫死，如果要改比較麻煩。)*/
+        
+        (3)要使用時自動注入（相依性注入）
+
+        何謂相依性注入（dependency injection）
+        一種抽象的執行過程，隱藏複雜的物件關係
+        一種詭異的執行模式，自動注入其他元件
+        e.g. config,controller,factory,directive,filter
+    -->
+
+    <!-- 什麼是angular services物件
+        採用獨體模式（Singleton Pattern）：
+            取得服務物件後，會自動被快取！
+            代表服務物件的程式碼都不會被重複執行！
+        採用相依性注入模式（Dependency Injection）：
+            註冊為angular Services的物件，都可以自動注入到其他元件上
+            管理元件與元件間的相依性
+        採用延遲載入模式（Lazy Loading）
+            只有在第一次使用時才會建立服務實體。
+            /*進入某頁後才載入頁面 */
+    -->
+
+    <!-- DI範例(1)：宣告Angular控制器建構式
+            宣告控制器建構式：
+            function MainCtrl($scope){
+                $scope.name = "Will";
+            }
+
+            使用$inject註釋語法(optional)：
+            MainCtrl.$inject = ['$scope','$http'];
+            
+            /*陣列內的順序要按注入順序
+            目的：為了避免JS最小化帶來的影響！*/
+        
+         DI範例(2):透過module宣告物件
+            宣告自訂模組：
+            var app = angular.module('myApp',[]);
+
+            宣告控制器建構式：
+            function MainCtrl($scope){
+                $scope.name = 'Will';
+            }
+            
+            使用$inject註釋語法：
+            MainCtrl.$inject = ['$scope','$http'];
+            將控制器註冊進模組：
+            app.controller('MainCtrl',MainCtrl);
+
+        DI範例(3):使用內置註釋語法
+            宣告自訂模組：
+            var app = angular.module('myApp',[]);
+            
+            宣告控制器建構式：
+            function MainCtrl(renamed$scope,renamed$http){
+                renamed$scope.name = 'Will';
+            }
+            
+            將控制器註冊進模組：
+            使用內置註釋語法（Inline Annotation）
+            app.controller('MainCtrl',['$scope','$http',MainCtrl]);
+    -->
+
+    <!-- 圖：模組與注入 模組是用來註冊元件的地方，取用資料是透過injector，一個ng-app只會有一個injector，這是預設，但你可以建立自己的injector物件。
+    injector負責維護一群內部服務物件快取，一旦取用過，物件就進快取不用再injector一次。
+    如果透過名稱找不到物件，會透過instance factory自動建立。-->
+    <!-- angular.module這個api決定整個angular要怎麼執行
+        run(initializationFn)             第一次執行時，angular會執行run  *Fn是指function
+        config(configFn)                  做一些低階相關設定比方路由
+        controller(name,contructor)       *constructor是指建構子
+        directive(name,directiveFactory)
+        filter(name,filterFactory)
+        animation(name,animationFactory)
+        constant(name,object)
+    -->
+    <!-- 圖：如何有效組織Angular程式碼與樣板
+        View / Templates (就是html)
+            所有的Scope物件都應該是{唯讀}
+        Angular Controllers
+            所有的Scope物件都應該{唯寫}
+            不應該處理任何跟DOM有關的工作（盡量）
+            只負責跟View溝通
+        Angular Services
+            不應該處理任何跟DOM有關的工作（盡量）
+            儲存共用於元件（包含控制器）之間的資料
+            只撰寫可以獨立運作的程式碼（與View無關）
+        Angular Directives
+            所有跟DOM相關的工作都應該寫在這裡，directive指的是寫在html裡的angular標籤，如<div ng-view="">,<div ng-click="">,<div ng-bind="">
+        Angular Filters
+            不應該處理任何跟DOM相關的工作
+            只應該處理要被過濾的資料
+        Angular Config
+            不應該處理任何跟DOM有關的工作
+            用來定義路由規則
+            用來定義底層angular的設定
+    -->
+<script>
+/*
+宣告控制器建構式，$scope就是angularJS的依賴注入
+function MainCtrl($scope){
+    $scope.name='will';
+}
+使用MainCtrl的方法
+<div ng-controller='MainCtrl'>
+    {{name}}
+</div>
+*/ 
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script>
+        function MainCtrl($scope){
+            $scope.greeting="Hello";
+            $scope.person="World";
+        }
+    </script>
+</head>
+<body>
+<!-- 我們可以利用ng-init設定初始值，另一種是透過controller用$scope寫在js中 -->
+    <!-- ng-init -->
+<!-- <div ng-app="">
+       <div ng-init="greeting='Hello';person='World'">
+           {{greeting}}{{person}}!
+       </div>
+   </!--> 
+
+<!-- $scope -->
+<div ng-app="" ng-controller="MainCtrl">
+    <div>
+        {{greeting}}{{person}}
+    </div>
+</div>
+</body>
+</html>
